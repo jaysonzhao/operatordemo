@@ -16,12 +16,17 @@ metadata:
         }
       ]
     capabilities: Basic Install
-  name: todoapp-operator.v0.1.7
-  namespace: placeholder
+  name: todoapp-operator.v0.2.0
+  namespace: testoptodo
 spec:
   apiservicedefinitions: {}
-  customresourcedefinitions: {}
-  description: Placeholder description
+  customresourcedefinitions:
+    owned:
+    - kind: Todoapp
+      name: todoapps.todoapp.example.com
+      version: 0.2.0 
+      description: Demo Only 
+      displayName: Todoapp Operator
   displayName: Todoapp Operator
   install:
     spec:
@@ -43,7 +48,7 @@ spec:
                 - /usr/local/bin/ao-logs
                 - /tmp/ansible-operator/runner
                 - stdout
-                image: quay.io/jaysonzhao/todoapp-operator:v0.0.1
+                image: quay.io/jaysonzhao/todoapp-operator:v0.1.5
                 imagePullPolicy: Always
                 name: ansible
                 resources: {}
@@ -64,7 +69,7 @@ spec:
                   value: todoapp-operator
                 - name: ANSIBLE_GATHERING
                   value: explicit
-                image: quay.io/jaysonzhao/todoapp-operator:v0.0.1
+                image: quay.io/jaysonzhao/todoapp-operator:v0.1.5
                 imagePullPolicy: Always
                 name: operator
                 resources: {}
@@ -175,6 +180,7 @@ spec:
   - supported: true
     type: AllNamespaces
   maturity: alpha
-  provider: {}
+  provider:
+    name: Jayson Zhao 
   replaces: todoapp-operator.v0.0.0
-  version: 0.1.7
+  version: 0.2.0
