@@ -75,3 +75,111 @@
           selector: 
             app: postgres
           type: LoadBalancer
+- name: todoapp db schema
+  k8s:
+    definition:
+      kind: Deployment
+      apiVersion: apps/v1
+      metadata:
+        labels:
+          app: todo-schema
+        name: '{{ meta.name }}-todo-schema'
+        namespace: '{{ meta.namespace }}'
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: todo-schema
+        template:
+          metadata:
+            labels:
+              app: todo-schema
+          spec:
+            containers:
+            - name: todo-schema
+              image: docker.io/burrsutter/todo:schema
+              imagePullPolicy: Always
+              env:
+              - name: QUARKUS_DATASOURCE_URL
+                value: jdbc:postgresql://{{ meta.name }}-svc:5432/postgresdb
+              - name: QUARKUS_DATASOURCE_USERNAME
+                value: admin
+              - name: QUARKUS_DATASOURCE_PASSWORD
+                value: adminS3cret
+              - name: QUARKUS_HIBERNATE_ORM_DATABASE_GENERATION
+                value: drop-and-create          
+              ports:
+                - containerPort: 8080
+              resources:
+                requests: 
+                  memory: "40Mi" 
+                  cpu: "100m" 
+                limits:
+                  memory: "80Mi"
+                  cpu: "300m"
+- name: todoapp app
+  k8s:
+    definition:
+      kind: Deployment
+      apiVersion: apps/v1
+      metadata:
+        labels:
+          app: todo
+        name: '{{ meta.name }}-my'
+        namespace: '{{ meta.namespace }}'
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: todo
+        template:
+          metadata:
+            labels:
+              app: todo
+          spec:
+            containers:
+            - name: todo
+              image: quay.io/burrsutter/todo:9.0.0
+              imagePullPolicy: Always
+              env:
+              - name: QUARKUS_DATASOURCE_URL
+                value: jdbc:postgresql://{{ meta.name }}-svc:5432/postgresdb
+              - name: QUARKUS_DATASOURCE_USERNAME
+                value: admin
+              - name: QUARKUS_DATASOURCE_PASSWORD
+                value: adminS3cret
+              - name: QUARKUS_HIBERNATE_ORM_DATABASE_GENERATION
+                value: none          
+              ports:
+                - containerPort: 8080
+              resources:
+                requests: 
+                  memory: "60Mi" 
+                  cpu: "100m" 
+                limits:
+                  memory: "80Mi"
+                  cpu: "300m"
+              readinessProbe:
+                httpGet:
+                  port: 8080
+                  path: /hello
+                initialDelaySeconds: 2
+                periodSeconds: 3
+  
+- name: todoapp route
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: '{{ meta.name }}-my'
+        namespace: '{{ meta.namespace }}'
+        labels:
+          app: todo    
+      spec:
+        ports:
+        - name: http
+          port: 8080
+        selector:
+          app: todo
+        type: LoadBalancer             
