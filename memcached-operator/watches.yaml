@@ -1,0 +1,9 @@
+---
+- version: v1alpha1
+  group: cache.example.com
+  kind: Memcached
+  role: /opt/ansible/roles/memcached
+  blacklist:
+    - group: ""
+      version: v1
+      kind: ConfigMap
