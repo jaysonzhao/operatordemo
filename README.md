@@ -6,6 +6,8 @@ https://github.com/operator-framework/operator-sdk/blob/master/doc/user/install-
 
 https://github.com/burrsutter/quarkus-todo-app/tree/master/kubefiles
 
+#For test or demo purpose, you can just do the deploy part. 
+
 # memcache operator
 Install operator sdk
 ```
