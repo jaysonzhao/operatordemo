@@ -8,6 +8,7 @@ $ curl -LO https://github.com/operator-framework/operator-sdk/releases/download/
 $ chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
 
 Create Project
+
 $ operator-sdk new memcached-operator --api-version=cache.example.com/v1alpha1 --kind=Memcached --type=ansible
 
 $ cd memcached-operator
@@ -26,10 +27,12 @@ ConfigMaps owned by a Memcached CR will not be watched or cached.
 
 
  roles/memcached/defaults/main.yml
+ 
 Size: 1
 
 
 roles/memcached/tasks/main.yml 
+
 - name: start memcached
   k8s:
     definition:
@@ -61,6 +64,7 @@ roles/memcached/tasks/main.yml
                 - containerPort: 11211
 
 Deploy
+
 oc new-project testopmemch
 
 oc create -f deploy/crds/cache.example.com_memcacheds_crd.yaml
@@ -73,6 +77,7 @@ docker push quay.io/jaysonzhao/memcached-operator:v0.0.1
 deploy/operator.yaml
    
    Replace this with the built image name
+   
           image: "quay.io/jaysonzhao/memcached-operator:v0.0.1"
           imagePullPolicy: "Always"
           volumeMounts:
@@ -115,11 +120,15 @@ spec:
 Install operator sdk
 
 $ RELEASE_VERSION=v0.15.2
+
 $ curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
+
 $ chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
 
 Create Project
+
 $ operator-sdk new todoapp-operator --api-version=todoapp.example.com/v1alpha1 --kind=Todoapp --type=ansible
+
 $ cd todoapp-operator 
 
 Modify Watches.yaml
@@ -154,6 +163,7 @@ Add the following part
 
 
  roles/todoapp/defaults/main.yml
+ 
 size: 1
 
 
@@ -165,14 +175,19 @@ https://raw.githubusercontent.com/jaysonzhao/operatordemo/master/todoapp-operato
 
 
 Deploy
+
 oc new-project testoptodo
+
 oc create -f deploy/crds/todoapp.example.com_todoapps_crd.yaml
+
 operator-sdk build quay.io/jaysonzhao/todoapp-operator:v0.0.1
+
 docker push quay.io/jaysonzhao/todoapp-operator:v0.0.1
 
 
 deploy/operator.yaml
 Replace this with the built image name
+
           image: "quay.io/jaysonzhao/todoapp-operator:v0.0.1"
           imagePullPolicy: "Always"
           volumeMounts:
@@ -187,8 +202,11 @@ Replace this with the built image name
 
 
 $ oc create -f deploy/service_account.yaml
+
 $ oc create -f deploy/role.yaml
+
 $ oc create -f deploy/role_binding.yaml
+
 $ oc create -f deploy/operator.yaml
 
 
