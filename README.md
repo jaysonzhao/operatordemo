@@ -1,3 +1,11 @@
+refer to:
+
+https://github.com/operator-framework/operator-sdk-samples/tree/master/ansible
+
+https://github.com/operator-framework/operator-sdk/blob/master/doc/user/install-operator-sdk.md
+
+https://github.com/burrsutter/quarkus-todo-app/tree/master/kubefiles
+
 # memcache operator
 Install operator sdk
 ```
