@@ -1,0 +1,5 @@
+channels:
+- currentCSV: todoapp-operator.v0.1.7
+  name: alpha
+defaultChannel: alpha
+packageName: todoapp-operator
