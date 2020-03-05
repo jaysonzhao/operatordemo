@@ -166,7 +166,7 @@
                 initialDelaySeconds: 2
                 periodSeconds: 3
   
-- name: todoapp route
+- name: todoapp service
   k8s:
     definition:
       apiVersion: v1
@@ -183,3 +183,21 @@
         selector:
           app: todo
         type: LoadBalancer             
+- name: todoapp route
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Route
+      metadata:
+        name: '{{ meta.name }}-mytodoroute'
+        namespace: '{{ meta.namespace }}'
+        labels:
+          app: todo    
+      spec:
+        to:
+          kind: Service
+          name: '{{ meta.name }}-my'
+          weight: 100
+        port:
+          targetPort: http
+        wildcardPolicy: None             
