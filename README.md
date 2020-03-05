@@ -2,15 +2,19 @@
 Install operator sdk
 
 $ RELEASE_VERSION=v0.15.2
+
 $ curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
+
 $ chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
 
 Create Project
 $ operator-sdk new memcached-operator --api-version=cache.example.com/v1alpha1 --kind=Memcached --type=ansible
+
 $ cd memcached-operator
 
 Modify Watches.yaml
-# ConfigMaps owned by a Memcached CR will not be watched or cached.
+ConfigMaps owned by a Memcached CR will not be watched or cached.
+
 - version: v1alpha1
   group: cache.example.com
   kind: Memcached
@@ -58,13 +62,17 @@ roles/memcached/tasks/main.yml
 
 Deploy
 oc new-project testopmemch
+
 oc create -f deploy/crds/cache.example.com_memcacheds_crd.yaml
+
 operator-sdk build quay.io/jaysonzhao/memcached-operator:v0.0.1
+
 docker push quay.io/jaysonzhao/memcached-operator:v0.0.1
 
 
 deploy/operator.yaml
-   # Replace this with the built image name
+   
+   Replace this with the built image name
           image: "quay.io/jaysonzhao/memcached-operator:v0.0.1"
           imagePullPolicy: "Always"
           volumeMounts:
@@ -79,8 +87,11 @@ deploy/operator.yaml
 
 
 $ oc create -f deploy/service_account.yaml
+
 $ oc create -f deploy/role.yaml
+
 $ oc create -f deploy/role_binding.yaml
+
 $ oc create -f deploy/operator.yaml
 
 
@@ -112,7 +123,7 @@ $ operator-sdk new todoapp-operator --api-version=todoapp.example.com/v1alpha1 -
 $ cd todoapp-operator 
 
 Modify Watches.yaml
-# ConfigMaps owned by a Memcached CR will not be watched or cached.
+ConfigMaps owned by a Memcached CR will not be watched or cached.
 
 ---
 - version: v1alpha1
@@ -161,7 +172,7 @@ docker push quay.io/jaysonzhao/todoapp-operator:v0.0.1
 
 
 deploy/operator.yaml
-   # Replace this with the built image name
+Replace this with the built image name
           image: "quay.io/jaysonzhao/todoapp-operator:v0.0.1"
           imagePullPolicy: "Always"
           volumeMounts:
