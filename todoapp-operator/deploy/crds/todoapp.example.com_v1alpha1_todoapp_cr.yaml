@@ -1,0 +1,7 @@
+apiVersion: "todoapp.example.com/v1alpha1"
+kind: "Todoapp"
+metadata:
+  name: "mytodo"
+spec:
+  size: 1
+

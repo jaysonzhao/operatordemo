@@ -1,0 +1,77 @@
+---
+# tasks file for todoapp
+- name: todoapp storage
+  k8s:
+    definition:     
+        kind: PersistentVolumeClaim
+        apiVersion: v1
+        metadata:
+          name: '{{ meta.name }}-pvc'
+          namespace: '{{ meta.namespace }}'
+          labels: 
+           app: postgres
+        spec:
+          storageClassName: gp2
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+- name: todoapp db
+  k8s:
+    definition:
+        kind: Deployment
+        apiVersion: apps/v1
+        metadata:
+          name: '{{ meta.name }}-db'
+          namespace: '{{ meta.namespace }}'
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: postgres
+          template:
+            metadata:
+              labels:
+                app: postgres
+            spec:
+              containers:
+              - name: postgres
+                image: postgres:10.5
+                imagePullPolicy: "IfNotPresent"
+                env: 
+                - name: POSTGRES_DB 
+                  value: postgresdb
+                - name: POSTGRES_USER
+                  value: admin
+                - name: POSTGRES_PASSWORD
+                  value: adminS3cret
+                - name: PGDATA
+                  value: /var/lib/postgresql/data/pgdata
+                ports:
+                - containerPort: 5432
+                  name: postgres
+                volumeMounts:
+                - name: myvolume
+                  mountPath: /var/lib/postgresql/data
+              volumes:
+                  # mapped to the PVC
+                - name: myvolume
+                  persistentVolumeClaim:
+                    claimName: '{{ meta.name }}-pvc'
+- name: todoapp dbsvc
+  k8s:
+    definition:
+        apiVersion: v1
+        kind: Service
+        metadata: 
+          name: '{{ meta.name }}-svc'
+          namespace: '{{ meta.namespace }}'
+          labels:
+            app: postgres
+        spec: 
+          ports:
+            - port: 5432  
+          selector: 
+            app: postgres
+          type: LoadBalancer
