@@ -1,4 +1,4 @@
-# TODO 
+# Install to OLM
  ```
  operator-sdk generate csv --csv-version 0.2.0 --update-crds
  pip3 install operator-courier
