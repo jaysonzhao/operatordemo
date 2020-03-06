@@ -6,6 +6,7 @@
  #need to fix some missing things
  
  # https://github.com/operator-framework/getting-started/pull/36
+ # https://github.com/operator-framework/operator-sdk-samples/issues/57
  cat deploy/olm-catalog/operatorGroup.yaml 
 apiVersion: operators.coreos.com/v1alpha2
 kind: OperatorGroup
