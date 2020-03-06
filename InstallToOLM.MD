@@ -4,6 +4,7 @@
  pip3 install operator-courier
  operator-courier verify --ui_validate_io todoapp-operator/deploy/olm-catalog/todoapp-operator 
  #need to fix some missing things
+ # https://github.com/operator-framework/getting-started/issues/39
  
  # https://github.com/operator-framework/getting-started/pull/36
  # https://github.com/operator-framework/operator-sdk-samples/issues/57
