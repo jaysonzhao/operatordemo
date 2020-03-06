@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha2
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: todoapp.example.com
+  generation: 2
+  name: myog
+spec:
+  targetNamespaces:
+  - testoptodo

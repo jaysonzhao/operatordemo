@@ -24,7 +24,7 @@ spec:
     owned:
     - kind: Todoapp
       name: todoapps.todoapp.example.com
-      version: 0.2.0 
+      version: v1alpha1 
       description: Demo Only 
       displayName: Todoapp Operator
   displayName: Todoapp Operator
