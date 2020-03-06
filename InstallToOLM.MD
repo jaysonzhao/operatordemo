@@ -18,8 +18,10 @@ spec:
   targetNamespaces:
   - testoptodo
 
- oc apply -f deploy/olm-catalog/todoapp-operator/0.2.0/todoapp-operator.v0.2.0.clusterserviceversion.yaml
 
+ oc create -f deploy/service_account.yaml
+ oc create -f deploy/role.yaml
+ oc create -f deploy/role_binding.yaml
  oc apply -f deploy/olm-catalog/operatorGroup.yaml
  oc apply -f deploy/olm-catalog/todoapp-operator/0.2.0/todoapp-operator.v0.2.0.clusterserviceversion.yaml
 
