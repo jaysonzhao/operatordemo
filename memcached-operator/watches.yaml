@@ -2,7 +2,7 @@
 - version: v1alpha1
   group: cache.example.com
   kind: Memcached
-  role: /opt/ansible/roles/memcached
+  playbook: /opt/ansible/playbook.yaml
   blacklist:
     - group: ""
       version: v1
