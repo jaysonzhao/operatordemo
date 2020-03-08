@@ -104,6 +104,8 @@ deploy/operator.yaml
 
 ```
 $ oc create -f deploy/service_account.yaml
+#found ansible authentication error on 4.2.16. add scc to svc account work around
+#oc adm policy add-scc-to-user anyuid -z memcached-operator
 
 $ oc create -f deploy/role.yaml
 
@@ -214,6 +216,8 @@ Replace this with the built image name
 ```
 ```
 $ oc create -f deploy/service_account.yaml
+#found ansible authentication error on 4.2.16. add scc to svc account work around
+#oc adm policy add-scc-to-user anyuid -z todoapp-operator
 
 $ oc create -f deploy/role.yaml
 
