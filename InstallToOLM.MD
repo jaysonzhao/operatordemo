@@ -5,9 +5,11 @@
  operator-courier verify --ui_validate_io todoapp-operator/deploy/olm-catalog/todoapp-operator 
  #need to fix some missing things
  # https://github.com/operator-framework/getting-started/issues/39
+ # issue gone in 0.17.0
  
  # https://github.com/operator-framework/getting-started/pull/36
  # https://github.com/operator-framework/operator-sdk-samples/issues/57
+ # still need to apply operatorgroup in 17.0
  cat deploy/olm-catalog/operatorGroup.yaml 
 apiVersion: operators.coreos.com/v1alpha2
 kind: OperatorGroup
@@ -25,6 +27,6 @@ spec:
  oc create -f deploy/role.yaml
  oc create -f deploy/role_binding.yaml
  oc apply -f deploy/olm-catalog/operatorGroup.yaml
- oc apply -f deploy/olm-catalog/todoapp-operator/0.2.0/todoapp-operator.v0.2.0.clusterserviceversion.yaml
+ oc apply -f deploy/olm-catalog/todoapp-operator/manifest/todoapp-operator.v0.2.0.clusterserviceversion.yaml
 
 ```
