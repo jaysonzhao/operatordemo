@@ -11,7 +11,7 @@ https://github.com/burrsutter/quarkus-todo-app/tree/master/kubefiles
 # memcache operator
 Install operator sdk
 ```
-$ RELEASE_VERSION=v0.17.1
+$ RELEASE_VERSION=v0.17.0
 
 $ curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
 
@@ -133,7 +133,7 @@ spec:
 
 Install operator sdk
 ```
-$ RELEASE_VERSION=v0.17.1
+$ RELEASE_VERSION=v0.17.0
 
 $ curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
 
