@@ -22,6 +22,9 @@ spec:
   targetNamespaces:
   - testoptodo
 
+#0.17.1+  added manefest package feature
+operator-sdk generate csv --make-manifests=false --csv-version 0.2.0
+
 
  oc create -f deploy/service_account.yaml
  oc create -f deploy/role.yaml
