@@ -25,6 +25,24 @@ spec:
 #0.17.1+  added manefest package feature
 operator-sdk generate csv --make-manifests=false --csv-version 0.2.0
 
+Create CatalogSource
+Replace ${REGISTRY} with YOUR_REGISTRY_URL
+echo "apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: internal-mirrored-operatorhub-catalog
+  namespace: openshift-marketplace
+spec:
+  displayName: My Mirrored Operator Catalog
+  sourceType: grpc
+  image: ${REGISTRY}/openshift-marketplace/mirrored-operator-catalog
+" > internal-mirrored-operatorhub-catalog.yaml
+
+Apply the CatalogSource
+```
+oc create -f internal-mirrored-operatorhub-catalog.yaml
+```
+
 
  oc create -f deploy/service_account.yaml
  oc create -f deploy/role.yaml
